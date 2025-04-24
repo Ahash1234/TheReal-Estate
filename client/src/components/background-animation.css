@@ -1,0 +1,55 @@
+.floating-shape {
+    position: absolute;
+    border-radius: 6px;
+    backdrop-filter: blur(3px);
+    animation: floatShape 30s infinite linear, pulseOpacity 5s infinite ease-in-out;
+    opacity: 0.35;
+  }
+  
+  /* Random color classes */
+  .shape-blue {
+    background: rgba(0, 132, 255, 0.2);
+    border: 1px solid rgba(0, 132, 255, 0.4);
+    box-shadow: 0 0 16px rgba(0, 132, 255, 0.5);
+  }
+  
+  .shape-pink {
+    background: rgba(255, 0, 132, 0.2);
+    border: 1px solid rgba(255, 0, 132, 0.4);
+    box-shadow: 0 0 16px rgba(255, 0, 132, 0.5);
+  }
+  
+  .shape-teal {
+    background: rgba(0, 220, 190, 0.2);
+    border: 1px solid rgba(0, 220, 190, 0.4);
+    box-shadow: 0 0 16px rgba(0, 220, 190, 0.5);
+  }
+  
+  .shape-purple {
+    background: rgba(180, 0, 255, 0.2);
+    border: 1px solid rgba(180, 0, 255, 0.4);
+    box-shadow: 0 0 16px rgba(180, 0, 255, 0.5);
+  }
+  
+  /* Keyframes */
+  @keyframes floatShape {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-300px) translateX(150px) rotate(180deg);
+    }
+    100% {
+      transform: translateY(0) translateX(0) rotate(360deg);
+    }
+  }
+  
+  @keyframes pulseOpacity {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+  

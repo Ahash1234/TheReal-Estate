@@ -4,6 +4,7 @@ const initialState = {
   currentUser: null,
   error: null,
   loading: false,
+  favorites: [], // Add favorites array to the initial state
 };
 
 const userSlice = createSlice({
@@ -58,6 +59,23 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    addToFavorites: (state, action) => {
+      // Ensure favorites array is defined before adding and prevent duplicates
+      const normalizedPayload = action.payload.toString();
+      const normalizedFavorites = state.favorites.map(id => id.toString());
+      if (state.favorites && !normalizedFavorites.includes(normalizedPayload)) {
+        state.favorites = [...state.favorites, action.payload];
+        console.log("Reducer addToFavorites called. Favorites updated:", state.favorites); // Debug log
+      } else {
+        console.log("Reducer addToFavorites called but item already in favorites:", action.payload);
+      }
+    },
+    removeFromFavorites: (state, action) => {
+      // Remove the listing ID from the favorites array
+      const normalizedPayload = action.payload.toString();
+      state.favorites = state.favorites.filter(id => id.toString() !== normalizedPayload);
+      console.log("Reducer removeFromFavorites called. Favorites updated:", state.favorites); // Debug log
+    },
   },
 });
 
@@ -74,6 +92,8 @@ export const {
   signOutUserFailure,
   signOutUserSuccess,
   signOutUserStart,
+  addToFavorites, // Export the new action
+  removeFromFavorites, // Export the remove action
 } = userSlice.actions;
 
 export default userSlice.reducer;

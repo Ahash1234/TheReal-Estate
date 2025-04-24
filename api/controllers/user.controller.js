@@ -77,3 +77,62 @@ export const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
+// Add listing to favorites
+export const addFavorite = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, 'You can only modify your own favorites!'));
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(errorHandler(404, 'User not found!'));
+
+    const listingId = req.body.listingId;
+    if (!listingId) return next(errorHandler(400, 'Listing ID is required'));
+
+    // Prevent duplicates
+    if (user.favorites.includes(listingId)) {
+      return res.status(200).json({ message: 'Listing already in favorites' });
+    }
+
+    user.favorites.push(listingId);
+    await user.save();
+
+    res.status(200).json({ message: 'Listing added to favorites' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get user's favorite listings
+export const getFavorites = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, 'You can only view your own favorites!'));
+  try {
+    const user = await User.findById(req.params.id).populate('favorites');
+    if (!user) return next(errorHandler(404, 'User not found!'));
+
+    res.status(200).json(user.favorites);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Remove listing from favorites
+export const removeFavorite = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, 'You can only modify your own favorites!'));
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(errorHandler(404, 'User not found!'));
+
+    const listingId = req.body.listingId;
+    if (!listingId) return next(errorHandler(400, 'Listing ID is required'));
+
+    user.favorites = user.favorites.filter(id => id.toString() !== listingId);
+    await user.save();
+
+    res.status(200).json({ message: 'Listing removed from favorites' });
+  } catch (error) {
+    next(error);
+  }
+};

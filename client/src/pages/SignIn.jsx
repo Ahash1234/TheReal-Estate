@@ -36,6 +36,7 @@ export default function SignIn() {
         dispatch(signInFailure(data.message));
         return;
       }
+      // Ensure token is included in currentUser
       dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {

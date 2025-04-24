@@ -8,12 +8,37 @@ import {
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
-export default function CreateListing() {
+// Fix default icon issue with leaflet in React
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
+function LocationMarker({ position, setPosition }) {
+  useMapEvents({
+    click(e) {
+      setPosition(e.latlng);
+    },
+  });
+
+  return position === null ? null : <Marker position={position}></Marker>;
+}
+
+export default function UpdateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
   const [files, setFiles] = useState([]);
+  const [position, setPosition] = useState(null);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: '',
@@ -27,6 +52,9 @@ export default function CreateListing() {
     offer: false,
     parking: false,
     furnished: false,
+    latitude: null,
+    longitude: null,
+    notAvailable: false,
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -43,10 +71,23 @@ export default function CreateListing() {
         return;
       }
       setFormData(data);
+      if (data.latitude && data.longitude) {
+        setPosition({ lat: data.latitude, lng: data.longitude });
+      }
     };
 
     fetchListing();
-  }, []);
+  }, [params.listingId]);
+
+  useEffect(() => {
+    if (position) {
+      setFormData((prev) => ({
+        ...prev,
+        latitude: position.lat,
+        longitude: position.lng,
+      }));
+    }
+  }, [position]);
 
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -146,6 +187,8 @@ export default function CreateListing() {
         return setError('You must upload at least one image');
       if (+formData.regularPrice < +formData.discountPrice)
         return setError('Discount price must be lower than regular price');
+      if (formData.latitude === null || formData.longitude === null)
+        return setError('Please select the property location on the map');
       setLoading(true);
       setError(false);
       const res = await fetch(`/api/listing/update/${params.listingId}`, {
@@ -205,6 +248,20 @@ export default function CreateListing() {
             onChange={handleChange}
             value={formData.address}
           />
+          <div className='mb-4'>
+            <p className='font-semibold mb-2'>Select Property Location on Map</p>
+            <MapContainer
+              center={position ? [position.lat, position.lng] : [51.505, -0.09]}
+              zoom={13}
+              style={{ height: '300px', width: '100%' }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+              />
+              <LocationMarker position={position} setPosition={setPosition} />
+            </MapContainer>
+          </div>
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
               <input
@@ -255,6 +312,18 @@ export default function CreateListing() {
                 checked={formData.offer}
               />
               <span>Offer</span>
+            </div>
+            <div className='flex gap-2'>
+              <input
+                type='checkbox'
+                id='notAvailable'
+                className='w-5'
+                onChange={(e) =>
+                  setFormData({ ...formData, notAvailable: e.target.checked })
+                }
+                checked={formData.notAvailable}
+              />
+              <span>Not Available</span>
             </div>
           </div>
           <div className='flex flex-wrap gap-6'>
