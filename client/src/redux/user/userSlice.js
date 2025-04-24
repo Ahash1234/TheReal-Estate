@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
   favorites: [], // Add favorites array to the initial state
 };
-
+//goddspeed
 const userSlice = createSlice({
   name: 'user',
   initialState,

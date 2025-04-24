@@ -16,7 +16,7 @@ export default function About() {
     const counts = setInterval(() => {
       setListings(prev => (prev < 512 ? prev + 8 : 512));
       setAgents(prev => (prev < 35 ? prev + 1 : 35));
-      setClients(prev => (prev < 1250 ? prev + 20 : 1250));
+      setClients(prev => (prev < 1250 ? prev + 20 : 1250));//goddspeed
     }, 30);
     return () => clearInterval(counts);
   }, []);

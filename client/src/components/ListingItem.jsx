@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 export default function ListingItem({ listing }) {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user.currentUser);//goddspeed
   const favorites = useSelector((state) => state.user.favorites ?? [], shallowEqual);
 
   return (

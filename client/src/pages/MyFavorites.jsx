@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import ListingItem from '../components/ListingItem';
-
+//goddspeed
 export default function MyFavorites() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const favorites = useSelector((state) => state.user.favorites ?? [], shallowEqual);

@@ -180,7 +180,6 @@ export default function Payment() {
                 required
               />
             </label>
-            <p> YOU CAN PAY $10 TO CONFORM YOUR BOOKING!</p>
             <button
               type="submit"
               className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition duration-200"
@@ -200,7 +199,7 @@ export default function Payment() {
               </p>
             </div>
 
-            <h1 className="text-2xl font-bold mb-2 text-slate-800">Health Secure</h1>
+            <h1 className="text-2xl font-bold mb-2 text-slate-800">Trip Secure</h1>
             <p className="text-blue-600 mb-4 font-medium">Enjoy a Worry-Free Stay</p>
 
             <div className="bg-blue-50 rounded p-4 mb-4">
@@ -231,7 +230,7 @@ export default function Payment() {
             </div>
 
             <div className="mb-4">
-              <p className="text-xl font-bold text-slate-800">${totalHealthInsurancePrice.toLocaleString('en-US')} <span className="text-base font-normal">({healthInsurancePeople} {healthInsurancePeople > 1 ? 'people' : 'person'})</span></p>
+              <p className="text-xl font-bold text-slate-800">${finalPrice.toLocaleString('en-US')} <span className="text-base font-normal">per guest</span></p>
               <p className="text-sm text-gray-500">Non Refundable | 18% GST Included</p>
             </div>
 
@@ -245,7 +244,7 @@ export default function Payment() {
                   className="h-4 w-4"
                   checked={secureTrip === true}
                 />
-                <span className="text-gray-800 font-medium">Yes, secure my health.</span>
+                <span className="text-gray-800 font-medium">Yes, secure my trip.</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -256,7 +255,7 @@ export default function Payment() {
                   className="h-4 w-4"
                   checked={secureTrip === false}
                 />
-                <span className="text-gray-800 font-medium">No, I will book without health secure.</span>
+                <span className="text-gray-800 font-medium">No, I will book without trip secure.</span>
               </label>
             </div>
 

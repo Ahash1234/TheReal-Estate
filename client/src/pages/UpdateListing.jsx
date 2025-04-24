@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import L from 'leaflet';//goddspeed
 
 // Fix default icon issue with leaflet in React
 delete L.Icon.Default.prototype._getIconUrl;

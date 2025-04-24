@@ -8,6 +8,7 @@ import ListingItem from '../components/ListingItem';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../components/background-animation.css';
+//goddspeed
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);

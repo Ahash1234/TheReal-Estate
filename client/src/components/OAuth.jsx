@@ -12,7 +12,7 @@ export default function OAuth() {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
 
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);//goddspeed
 
       const res = await fetch('/api/auth/google', {
         method: 'POST',

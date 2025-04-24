@@ -68,7 +68,7 @@ export default function BenefitsModal({ open, onClose, price }) {
     </div>
   );
 }
-
+/* Keyframes */
 function CategoryHeader({ label, open, onToggle }) {
   return (
     <div className="flex justify-between items-center mt-6 mb-2 cursor-pointer" onClick={onToggle}>

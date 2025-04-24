@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { useSelector } from 'react-redux';
 import { Navigation, Autoplay } from 'swiper/modules';
-import 'swiper/css/bundle';
+import 'swiper/css/bundle';//goddspeed
 import {
   FaBath,
   FaBed,

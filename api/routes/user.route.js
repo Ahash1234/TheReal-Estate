@@ -16,4 +16,4 @@ router.post('/favorites/:id', verifyToken, addFavorite);
 router.get('/favorites/:id', verifyToken, getFavorites);
 router.delete('/favorites/:id', verifyToken, removeFavorite);
 
-export default router;
+export default router;//kill

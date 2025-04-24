@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function CookiesPolicy() {
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);//goddspeed
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white text-gray-800 font-sans leading-relaxed">

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);//goddspeed
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const handleSubmit = (e) => {

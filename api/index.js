@@ -19,7 +19,7 @@ mongoose
 
   const __dirname = path.resolve();
 
-const app = express();
+const app = express();//kitta
 
 app.use(express.json());
 

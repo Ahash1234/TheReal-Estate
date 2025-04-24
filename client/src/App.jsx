@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
+import 'aos/dist/aos.css';//goddspeed
 
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
